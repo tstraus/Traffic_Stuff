@@ -6,13 +6,14 @@
 #define __TRAFFIC_STUFF_VEHICLE_H__
 
 #include <thread>
+#include <mutex>
 
 using namespace std;
 
 class Vehicle
 {
 public:
-    Vehicle(double avgSpeed, double startingDistance = 0.0, unsigned char startingLane = 0);
+    Vehicle(double avgVelocity, double startingDistance = 0.0, unsigned char startingLane = 0, unsigned int updateRate = 50);
 
     ~Vehicle();
 
@@ -23,7 +24,9 @@ public:
 private:
     void driveLoop(bool asdf);
 
-    double avgSpeed;
+    double avgVelocity;
+
+    double velocity;
 
     struct {
         double distance;
@@ -31,9 +34,13 @@ private:
         unsigned char lane;
     } location;
 
+    unsigned int updateRate;
+
     thread* driveThread;
 
     bool threadShouldBeRunning;
+
+    mutex mux;
 };
 
 #endif //__TRAFFIC_STUFF_VEHICLE_H__
