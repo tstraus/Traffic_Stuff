@@ -5,6 +5,10 @@
 #ifndef __TRAFFIC_STUFF_VEHICLE_H__
 #define __TRAFFIC_STUFF_VEHICLE_H__
 
+#include <thread>
+
+using namespace std;
+
 class Vehicle
 {
 public:
@@ -14,7 +18,11 @@ public:
 
     void drive();
 
+    void stopThread();
+
 private:
+    void driveLoop(bool asdf);
+
     double avgSpeed;
 
     struct {
@@ -22,6 +30,10 @@ private:
 
         unsigned char lane;
     } location;
+
+    thread* driveThread;
+
+    bool threadShouldBeRunning;
 };
 
 #endif //__TRAFFIC_STUFF_VEHICLE_H__

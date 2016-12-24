@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include <random>
-#include <thread>
 
 #include "Vehicle.h"
 
@@ -13,6 +12,8 @@ using namespace std;
 Vehicle::Vehicle(double avgSpeed, double startingDistance, unsigned char startingLane)
 {
     //cout << "Vehicle()" << endl;
+
+    threadShouldBeRunning = false;
 
     this->avgSpeed = avgSpeed;
     location.distance = startingDistance;
@@ -26,13 +27,25 @@ Vehicle::~Vehicle()
 
 void Vehicle::drive()
 {
-    //cout << "drive()" << endl;
+    threadShouldBeRunning = true;
+
+    driveThread = new thread(&Vehicle::driveLoop, this, true);
+}
+
+void Vehicle::stopThread()
+{
+
+}
+
+void Vehicle::driveLoop(bool asdf)
+{
+    cout << "driveLoop()" << endl;
 
     long long int seed = chrono::system_clock::now().time_since_epoch().count();
     default_random_engine engine((unsigned int)seed);
     normal_distribution<double> speed(avgSpeed, 1);
 
-    while (true)
+    while (threadShouldBeRunning)
     {
         cout << speed(engine) << endl;
 
