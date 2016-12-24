@@ -26,8 +26,8 @@ void Vehicle::drive()
 {
     //cout << "drive()" << endl;
 
-    unsigned int seed = chrono::system_clock::now().time_since_epoch().count();
-    default_random_engine engine(seed);
+    long long int seed = chrono::system_clock::now().time_since_epoch().count();
+    default_random_engine engine((unsigned int)seed);
     normal_distribution<double> speed(avgSpeed, 1);
 
     while (true)
