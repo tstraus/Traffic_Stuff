@@ -10,11 +10,13 @@
 
 using namespace std;
 
-Vehicle::Vehicle(double avgSpeed)
+Vehicle::Vehicle(double avgSpeed, double startingDistance, unsigned char startingLane)
 {
     //cout << "Vehicle()" << endl;
 
     this->avgSpeed = avgSpeed;
+    location.distance = startingDistance;
+    location.lane = startingLane;
 }
 
 Vehicle::~Vehicle()
