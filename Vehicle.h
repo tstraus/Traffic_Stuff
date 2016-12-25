@@ -21,11 +21,6 @@ public:
 
     void stopThread();
 
-private:
-    void driveLoop(bool asdf);
-
-    double avgVelocity;
-
     double velocity;
 
     struct {
@@ -33,6 +28,11 @@ private:
 
         unsigned char lane;
     } location;
+
+private:
+    void driveLoop(bool asdf);
+
+    double avgVelocity;
 
     unsigned int updateRate;
 

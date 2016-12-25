@@ -54,14 +54,16 @@ void Vehicle::driveLoop(bool asdf)
 
     while (threadShouldBeRunning)
     {
-        chrono::system_clock::time_point time = chrono::system_clock::now();
+        chrono::system_clock::time_point start = chrono::system_clock::now();
 
+        mux.lock();
         location.distance += velocity * (updateRate / 1000.0 / 60.0 / 60.0);
         velocity = nextVelocity(engine);
+        mux.unlock();
 
-        cout << "distance: " << location.distance << "mi\n";
-        cout << "velocity: " << velocity << "mph\n";
+        //cout << "distance: " << location.distance << "mi\n";
+        //cout << "velocity: " << velocity << "mph\n";
 
-        this_thread::sleep_until(time + chrono::milliseconds(updateRate));
+        this_thread::sleep_until(start + chrono::milliseconds(updateRate));
     }
 }
