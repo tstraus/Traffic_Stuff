@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include <cmath>
 #include <iostream>
+#include <vector>
 
 #include "Vehicle.h"
 
@@ -8,37 +9,42 @@ using namespace std;
 
 int main()
 {
-    Vehicle vehicle1(60.0, 0.0);
-    Vehicle vehicle2(55.0, 0.05);
+    vector<Vehicle*> vehicles;
 
-    vehicle1.drive();
-    vehicle2.drive();
+    vehicles.push_back(new Vehicle(60.0, 0.0));
+    vehicles.push_back(new Vehicle(55.0, 0.05));
+    vehicles.push_back(new Vehicle(50.0, 0.10));
 
-    for (int i = 0; i < 1200; i++)
+    for (auto& vehicle : vehicles)
+        vehicle->drive();
+
+    bool collision = false;
+    while (!collision)
     {
         chrono::system_clock::time_point start = chrono::system_clock::now();
 
-        double diff = abs(vehicle1.location.distance - vehicle2.location.distance);
+        for (auto& vehicle: vehicles)
+        {
+            cout << "location: " << vehicle->location.distance << "mi\n";
 
-        cout << "diff: " << diff << endl;
+            for (auto& i: vehicles)
+            {
+                if (vehicle != i && abs(vehicle->location.distance - i->location.distance) < 0.01)
+                    collision = true;
+            }
+        }
 
-        if (diff < 0.01)
-            break;
+        cout << endl;
 
         this_thread::sleep_until(start + chrono::milliseconds(50));
     }
 
-    //cin.get();
-    //sleep(60);
-
     cout << "Stopping Threads" << endl;
-    vehicle1.stopThread();
-    vehicle2.stopThread();
+    for (auto& vehicle: vehicles)
+        vehicle->stopThread();
 
-    cout << "-----Vehicle 1-----" << endl;
-    cout << "location: " << vehicle1.location.distance << "mi" << endl;
-    cout << "-----Vehicle 2-----" << endl;
-    cout << "location: " << vehicle2.location.distance << "mi" << endl;
+    for (auto& vehicle: vehicles)
+        cout << "location: " << vehicle->location.distance << "mi" << endl;
 
     return 0;
 }

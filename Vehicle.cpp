@@ -15,10 +15,13 @@ Vehicle::Vehicle(double avgVelocity, double startingDistance, unsigned char star
 
     threadShouldBeRunning = false;
 
+    mux.lock();
+    velocity = avgVelocity;
     this->avgVelocity = avgVelocity;
     location.distance = startingDistance;
     location.lane = startingLane;
     this->updateRate = updateRate;
+    mux.unlock();
 }
 
 Vehicle::~Vehicle()
@@ -46,7 +49,7 @@ void Vehicle::stopThread()
 
 void Vehicle::driveLoop(bool asdf)
 {
-    cout << "driveLoop()" << endl;
+    //cout << "driveLoop()" << endl;
 
     long long int seed = chrono::system_clock::now().time_since_epoch().count();
     default_random_engine engine((unsigned int)seed);
@@ -57,12 +60,9 @@ void Vehicle::driveLoop(bool asdf)
         chrono::system_clock::time_point start = chrono::system_clock::now();
 
         mux.lock();
-        location.distance += velocity * (updateRate / 1000.0 / 60.0 / 60.0);
+        location.distance += velocity * (updateRate / 3600000.0);
         velocity = nextVelocity(engine);
         mux.unlock();
-
-        //cout << "distance: " << location.distance << "mi\n";
-        //cout << "velocity: " << velocity << "mph\n";
 
         this_thread::sleep_until(start + chrono::milliseconds(updateRate));
     }
