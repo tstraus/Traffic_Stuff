@@ -1,3 +1,7 @@
+//
+// Created by Tucker Strausbaugh on 11/25/16.
+//
+
 #include <unistd.h>
 #include <cmath>
 #include <iostream>
