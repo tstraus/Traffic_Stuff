@@ -1,0 +1,34 @@
+{
+  "vehicles": [
+    {
+      "avgVelocity": 65.0,
+      "startingDistance": 0.00,
+      "startingLane": 0,
+      "updateRate": 50
+    },
+    {
+      "avgVelocity": 60.0,
+      "startingDistance": 0.05,
+      "startingLane": 0,
+      "updateRate": 50
+    },
+    {
+      "avgVelocity": 55.0,
+      "startingDistance": 0.10,
+      "startingLane": 0,
+      "updateRate": 50
+    },
+    {
+      "avgVelocity": 50.0,
+      "startingDistance": 0.15,
+      "startingLane": 0,
+      "updateRate": 50
+    },
+    {
+      "avgVelocity": 45.0,
+      "startingDistance": 0.20,
+      "startingLane": 0,
+      "updateRate": 50
+    }
+  ]
+}
