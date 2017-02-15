@@ -33,7 +33,6 @@
 *.out
 *.app
 
-.gitignore
 .idea/.name
 .idea/Traffic Stuff.iml
 .idea/dictionaries/
