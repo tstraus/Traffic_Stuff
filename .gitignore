@@ -33,6 +33,7 @@
 *.out
 *.app
 
+build/
 .idea
 .idea/.name
 .idea/Traffic Stuff.iml
