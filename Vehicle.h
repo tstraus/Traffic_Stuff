@@ -6,7 +6,7 @@
 #define __TRAFFIC_STUFF_VEHICLE_H__
 
 #include <thread>
-#include <mutex>
+#include <atomic>
 
 using namespace std;
 
@@ -21,12 +21,12 @@ public:
 
     void stopThread();
 
-    double velocity;
+    atomic<double> velocity;
 
-    struct {
-        double distance;
+    struct Location {
+        atomic<double> distance;
 
-        unsigned char lane;
+        atomic<unsigned char> lane;
     } location;
 
 private:
@@ -38,9 +38,7 @@ private:
 
     thread* driveThread;
 
-    bool threadShouldBeRunning;
-
-    mutex mux;
+    atomic<bool> threadShouldBeRunning;
 };
 
 #endif //__TRAFFIC_STUFF_VEHICLE_H__

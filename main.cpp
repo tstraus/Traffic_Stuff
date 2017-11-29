@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <memory>
 
 #include "Vehicle.h"
 #include "json.hpp"
@@ -15,14 +16,14 @@ using json = nlohmann::json;
 
 int main()
 {
-    vector<Vehicle*> vehicles;
+    vector<shared_ptr<Vehicle>> vehicles;
 
     ifstream file("Vehicles.json");
     json config;
     file >> config;
 
     for (auto& vehicle: config["vehicles"])
-        vehicles.push_back(new Vehicle(vehicle["avgVelocity"], vehicle["startingDistance"], vehicle["startingLane"], vehicle["updateRate"]));
+        vehicles.push_back(make_shared<Vehicle>(vehicle["avgVelocity"], vehicle["startingDistance"], vehicle["startingLane"], vehicle["updateRate"]));
 
    for (auto& vehicle : vehicles)
         vehicle->drive();
