@@ -1,14 +1,29 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.0)
 project(Traffic_Stuff)
-
-find_package(Threads)
 
 set(CMAKE_CXX_STANDARD 11)
 
+find_package(Threads)
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Vehicles.json ${CMAKE_CURRENT_SOURCE_DIR}/cmake-build-debug/Vehicles.json COPYONLY)
 
-set(SOURCE_FILES main.cpp Vehicle.cpp Vehicle.h json.hpp)
-add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+include_directories(
+    ${PROJECT_SOURCE_DIR}/include
+    ${PROJECT_SOURCE_DIR}/header
+)
+
+set(SOURCE
+    source/main.cpp
+    source/Vehicle.cpp
+)
+
+set(HEADER
+    header/Vehicle.h
+)
+add_executable(${PROJECT_NAME}
+    ${SOURCE}
+    ${HEADER}
+)
 
 target_link_libraries(${PROJECT_NAME}
         ${CMAKE_THREAD_LIBS_INIT}
