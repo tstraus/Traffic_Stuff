@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 find_package(Threads)
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Vehicles.json ${CMAKE_CURRENT_SOURCE_DIR}/cmake-build-debug/Vehicles.json COPYONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/data/Vehicles.json ${CMAKE_CURRENT_SOURCE_DIR}/cmake-build-debug/Vehicles.json COPYONLY)
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/include
